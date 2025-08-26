@@ -180,7 +180,7 @@ class _ChatPageState extends State<ChatPage> {
             // send button
             CircleAvatar(
               radius: 25,
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: const Color.fromARGB(255, 100, 192, 103),
               child: IconButton(
                 icon: const Icon(Icons.send, color: Colors.white),
                 onPressed: sendMessage,
