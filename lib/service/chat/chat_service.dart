@@ -27,8 +27,8 @@ class ChatService extends ChangeNotifier {
       message: message,
     );
 
-    // constract chat room id from current user id and receiver id (sorted to ensure uniqunesss)
-
+    // constract chat room id from current user id and receiver id (alphebetically sort 2 ides)
+// 
     List<String> ids = [curretuserId, receiverId];
     ids.sort(); // sort the ids
 
