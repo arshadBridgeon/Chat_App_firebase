@@ -59,49 +59,64 @@ class _HomepageState extends State<Homepage> {
 
   // Build  user card 
   Widget _buildListItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+  // Make sure document has data
+  if (document.data() == null) {
+    return Container(); // skip if null
+  }
 
-    if (_auth.currentUser!.email != data['email']) {
-      return Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        child: ListTile(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.green,
-            child: Text(
-              data['email'][0].toUpperCase(),
-              style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold),
+  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+  // Safely access email & uid
+  String? email = data['email'];
+  String? uid = data['uid'];
+
+  if (email == null || uid == null) {
+    return Container(); // skip invalid documents
+  }
+
+  if (_auth.currentUser!.email != email) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        leading: CircleAvatar(
+          radius: 25,
+          backgroundColor: Colors.green,
+          child: Text(
+            email.isNotEmpty ? email[0].toUpperCase() : "?",
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          title: Text(
-            data['email'],
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          subtitle: const Text(
-            "Tap to chat",
-            style: TextStyle(color: Colors.grey),
-          ),
-          trailing: const Icon(Icons.chat_bubble_outline, color: Colors.green),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatPage(
-                  receiverUserEmail: data['email'],
-                  receiverUseId: data['uid'],
-                ),
-              ),
-            );
-          },
         ),
-      );
-    } else {
-      return Container();
-    }
+        title: Text(
+          email,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        subtitle: const Text(
+          "Tap to chat",
+          style: TextStyle(color: Colors.grey),
+        ),
+        trailing: const Icon(Icons.chat_bubble_outline, color: Colors.green),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                receiverUserEmail: email,
+                receiverUseId: uid,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  } else {
+    return Container();
   }
+}
+
 }

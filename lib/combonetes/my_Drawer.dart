@@ -10,7 +10,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     void signOut() {
       showDialog(
-        barrierColor: Colors.amber,
+      
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -24,7 +24,7 @@ class MyDrawer extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                },
+                },  
                 child: Text('No'),
               ),
               ElevatedButton(
@@ -52,10 +52,10 @@ class MyDrawer extends StatelessWidget {
       backgroundColor: Colors.white,
       child: Column(
         children: [
-          // Logo
+          
           DrawerHeader(child: Icon(Icons.message, size: 40)),
 
-          // Home List tile
+          
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
             child: ListTile(
@@ -86,9 +86,7 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
 
-          // settings list tile
-
-          // logout list tile
+          
         ],
       ),
     );
