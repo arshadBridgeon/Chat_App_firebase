@@ -32,7 +32,7 @@ class ChatService extends ChangeNotifier {
     List<String> ids = [curretuserId, receiverId];
     ids.sort(); // sort the ids
 
-    String chatRoomId = ids.join('_'); // combine the ids
+    String chatRoomId = ids.join('_'); 
 
     // add new message to database
 

@@ -8,29 +8,45 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     void signOut() {
-    showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: Text('Conform logout'),
-        content: Text('Are you sure you want to logout?'),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(20)
-        ),
-        actions: [
-          TextButton(onPressed: (){
-            Navigator.pop(context);
-          }, child: Text('No')),
-          ElevatedButton(onPressed: (){
-            final authservice = Provider.of<AuthService>(context, listen: false);
-    authservice.signOut();
-    Navigator.pop(context);
-          }, child: Text('Yes'))
-        ],
+    void signOut() {
+      showDialog(
+        barrierColor: Colors.amber,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            
+            title: Text('Conform logout'),
+            content: Text('Are you sure you want to logout?'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(20),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No'),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.red.shade300),
+                  foregroundColor: WidgetStatePropertyAll(Colors.white)
+                ),
+                onPressed: () {
+                  final authservice = Provider.of<AuthService>(
+                    context,
+                    listen: false,
+                  );
+                  authservice.signOut();
+                  Navigator.pop(context);
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
       );
-    });
-    
-    
-  }
+    }
 
     return Drawer(
       backgroundColor: Colors.white,
@@ -38,7 +54,7 @@ class MyDrawer extends StatelessWidget {
         children: [
           // Logo
           DrawerHeader(child: Icon(Icons.message, size: 40)),
-      
+
           // Home List tile
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
@@ -46,7 +62,10 @@ class MyDrawer extends StatelessWidget {
               title: Text('P R O F I L E'),
               leading: Icon(Icons.person),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(),));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
               },
             ),
           ),
@@ -66,9 +85,9 @@ class MyDrawer extends StatelessWidget {
               onTap: signOut,
             ),
           ),
-      
+
           // settings list tile
-      
+
           // logout list tile
         ],
       ),
