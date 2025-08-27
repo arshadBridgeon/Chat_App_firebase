@@ -3,9 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthService extends ChangeNotifier {
-  // instanse of auth
+  
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  // instanse of firestore
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // sign user in
@@ -17,7 +16,7 @@ class AuthService extends ChangeNotifier {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
-      // add a new document for the user collection if it does't already exits
+      // add a new document for the user collection (already have account mrg in document)
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
